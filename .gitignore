@@ -1,0 +1,15 @@
+# virtual envoriment 
+venv/ 
+
+# python cache files 
+__pycache__/
+*.pyc
+*.pyo
+
+*.db
+
+.env
+
+.DS_Store
+
+.vscode/ 
