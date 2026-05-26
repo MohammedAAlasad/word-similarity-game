@@ -4,6 +4,8 @@ from sentence_transformers import util
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
+
+
 def get_similarity(word1, word2):
     word1Vector = model.encode(word1)
     word2Vector = model.encode(word2)
@@ -23,14 +25,8 @@ def score_to_rank(score):
         return 'warm'
     elif score >= 0.15:
         return 'Cold'
-    
     else :
         return 'Freezing'
     
-DailyWord = "king"
-userWord = input("Enter your guess: ")
 
-simScore = get_similarity(DailyWord,userWord)
-levelOfSim = score_to_rank(simScore)
-print(f"Your score is: {simScore} - {levelOfSim}")
 
