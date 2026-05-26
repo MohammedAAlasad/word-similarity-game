@@ -1,16 +1,16 @@
-from fastapi import FastAPI 
+from fastapi import FastAPI
+from pydantic import BaseModel
 from similarity import get_similarity, score_to_rank
 
-app = FastAPI() 
-DailyWord = "king"
+app = FastAPI()
+DAILY_WORD = "king"
+
+class GuessRequest(BaseModel):
+    word: str
 
 @app.post("/api/guess")
-# endpoint function - things should run every request 
-def guess(data : dict):
-    word = data["word"]
-    word = word.lower()
-    score = get_similarity(DailyWord ,word )
+def guess(data: GuessRequest):
+    word = data.word.lower()        
+    score = get_similarity(DAILY_WORD, word)
     rank = score_to_rank(score)
     return {"score": score, "rank": rank}
-
-
