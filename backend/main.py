@@ -2,9 +2,17 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from similarity import get_similarity, score_to_rank
 from database import get_daily_word , save_guess , init_db ,check_word
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 init_db()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class GuessRequest(BaseModel):
     word: str
