@@ -5,6 +5,8 @@ from pydantic import BaseModel
 from similarity import get_similarity, score_to_rank
 from database import get_daily_word , save_guess , init_db ,check_word , set_daily_word
 
+import random
+
 
 app = FastAPI()
 init_db()
@@ -19,6 +21,17 @@ app.add_middleware(
 class GuessRequest(BaseModel):
     word: str
     
+WORD_LIST = ["ocean", "forest", "castle", "dragon", "river", 
+             "mountain", "thunder", "silver", "garden", "winter"]
+
+@app.on_event("startup")
+def startup():
+    init_db()
+    if get_daily_word() is None:
+        word = random.choice(WORD_LIST)
+        set_daily_word(word)
+        print(f"Today's word set to: {word}")
+
 @app.post("/api/admin/set-word")
 def set_word(data: dict):
     word = data["word"].lower()

@@ -17,6 +17,8 @@ def get_similarity(word1, word2):
 def score_to_rank(score):
     if score is None:
         return 'unknown word' 
+    elif score == 1:
+        return 'Exactly'
     elif score >= 0.5:
         return 'Burning hot'
     elif score >= 0.35:

@@ -2,23 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>Word Game</h1>
+    <div class="game-container">
+        <h1>Word Game</h1>
+        
+        <p class="instructions">
+            Try to guess a word that is related to the secret word.
+            Enter your guess and submit it to see how close you are.
+        </p>
 
-    <p>
-        Try to guess a word that is related to the secret word.
-        Enter your guess and submit it to see how close you are.
-    </p>
+        <div class="input-group">
+            <input type="text" id="guessInput" placeholder="Enter your guess...">
+            <button id="submitBtn">Submit</button>
+        </div>
 
-    <input type="text" id="guessInput" placeholder="Enter your guess">
-
-    <button id="submitBtn">Submit</button>
-
-    <div id="results"></div>
+        <div id="results" class="results-container"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>
