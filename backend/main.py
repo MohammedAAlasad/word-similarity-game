@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from similarity import get_similarity, score_to_rank
-from database import get_daily_word , save_guess , init_db ,check_word , set_daily_word
+from database import get_daily_word , save_guess , init_db ,check_word , set_daily_word , clear_guesses
 
 import random
 
@@ -29,13 +29,15 @@ def startup():
     init_db()
     if get_daily_word() is None:
         word = random.choice(WORD_LIST)
-        set_daily_word(word)
+        clear_guesses()
+        set_daily_word(word , overwrite=False)
         print(f"Today's word set to: {word}")
 
 @app.post("/api/admin/set-word")
 def set_word(data: dict):
     word = data["word"].lower()
-    set_daily_word(word)
+    clear_guesses()
+    set_daily_word(word, overwrite=True)
     return {"message": f"Daily word set to: {word}"}
 
 @app.post("/api/guess")
